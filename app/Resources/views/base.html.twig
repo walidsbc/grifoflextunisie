@@ -1,0 +1,220 @@
+<!doctype html>
+<!--[if lte IE 9]>
+<html class="lte-ie9" lang="fr"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html lang="fr"> <!--<![endif]-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Remove Tap Highlight on Windows Phone IE -->
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <title>{% block title %} Grifoflex Tunisie {% endblock %}</title>
+    {% block css %}
+        {% stylesheets output="css/compiled/main.css" filter="cssrewrite"
+        'bundles/grifoflextunisie/bower_components/uikit/css/uikit.almost-flat.min.css'
+        'bundles/grifoflextunisie/assets/icons/flags/flags.min.css'
+        'bundles/grifoflextunisie/assets/css/main.min.css'
+        'bundles/grifoflextunisie/assets/css/themes/themes_combined.min.css'
+        'bundles/grifoflextunisie/assets/css/ie.css' %}
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+        {% endstylesheets %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('icon.ico') }}"/>
+    {% endblock %}
+    {% block jshead %}
+        {% javascripts output="js/compiled/mainheader.js"
+        'bundles/grifoflextunisie/jquery-3.1.1/jquery-3.1.1.min.js'
+        'bundles/grifoflextunisie/moment/moment.js'
+        'bundles/grifoflextunisie/timeLeft/timeLeft.js' %}
+        <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
+</head>
+<body class="sidebar_main_open sidebar_main_swipe">
+<!-- main header -->
+<header id="header_main">
+    <div class="header_main_content">
+        <nav class="uk-navbar">
+            <!-- main sidebar switch -->
+            <a href="#" id="sidebar_main_toggle" class="sSwitch sSwitch_left">
+                <span class="sSwitchIcon"></span>
+            </a>
+            <!-- secondary sidebar switch -->
+            <a href="#" id="sidebar_secondary_toggle" class="sSwitch sSwitch_right sidebar_secondary_check">
+                <span class="sSwitchIcon"></span>
+            </a>
+            <div class="uk-navbar-flip">
+                <ul class="uk-navbar-nav user_actions">
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <li data-uk-dropdown="{mode:'click',pos:'bottom-right'}">
+                            <a href="#" class="user_action_image">
+                                <img class="md-user-image" style="border: solid 1px;background: #fff;"
+                                     src="{{ asset('bundles/grifoflextunisie/assets/img/avatars/user.png') }}"
+                                     alt=""/>
+                            </a>
+                            <div class="uk-dropdown uk-dropdown-small">
+                                <ul class="uk-nav js-uk-prevent">
+                                    <li>
+                                        <a href="{{ path('fos_user_profile_show') }}"> Mon profile</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('fos_user_security_logout') }}">
+                                            <i class="fa fa-sign-out pull-right"></i>
+                                            Déconnexion
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% else %}
+                        <a href="{{ path('fos_user_security_login') }}" class="user-profile dropdown-toggle"
+                           aria-expanded="false">
+                            S'authentifier <span class=" fa fa-angle-down"></span>
+                        </a>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+<!-- main header end -->
+<!-- main sidebar -->
+<aside id="sidebar_main">
+    <div class="sidebar_main_header">
+        <div style="padding-top: 15px;">
+            <a href="" class="sSidebar_hide sidebar_logo_large">
+                <img class="logo_regular" src="{{ asset('logo-2.png') }}" alt="Logo-Grifoflex" height="50"
+                     width="250"/>
+            </a>
+        </div>
+    </div>
+    {% set current_route_name = app.request.attributes.get('_route') %}
+    <div class="menu_section">
+        <ul>
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+
+                <li title="Paramètres" {% if current_route_name == 'contact_mail_index' or current_route_name == 'contact_mail_new' or current_route_name == 'contact_mail_edit' or current_route_name == 'contact_mail_show' or current_route_name == 'application_mail_index' or current_route_name == 'application_mail_new' or current_route_name == 'application_mail_edit' or current_route_name == 'application_mail_show' %} class="current_section" {% endif %}>
+                    <a href="#">
+                        <span class="menu_icon"><i class="material-icons">&#xE869;</i></span>
+                        <span class="menu_title">Paramètres</span>
+                    </a>
+                    <ul>
+                        <li title="Adresses mail de contact" {% if current_route_name == 'contact_mail_index' or current_route_name == 'contact_mail_new' or current_route_name == 'contact_mail_edit' or current_route_name == 'contact_mail_show' %} class="act_item" {% endif %}>
+                            <a href="{{ path('contact_mail_index') }}">
+                                <span class="menu_title">Adresses mail de contact</span>
+                            </a>
+                        </li>
+                        <li title="Adresses mail de candidatures" {% if current_route_name == 'application_mail_index' or current_route_name == 'application_mail_new' or current_route_name == 'application_mail_edit' or current_route_name == 'application_mail_show' %} class="act_item" {% endif %}>
+                            <a href="{{ path('application_mail_index') }}">
+                                <span class="menu_title">Adresses mail de candidatures</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li title="Utilisateurs" {% if current_route_name == 'user_index' or current_route_name == 'user_edit' or current_route_name == 'user_show' or current_route_name == 'fos_user_profile_edit' or current_route_name == 'fos_user_registration_register' or current_route_name == 'fos_user_profile_show' %} class="current_section" {% endif %}>
+                    <a href="{{ path('user_index') }}">
+                        <span class="menu_icon"><i class="material-icons">&#xE7FD;</i></span>
+                        <span class="menu_title">Utilisateurs</span>
+                    </a>
+                </li>
+                <li title="Slider" {% if current_route_name == 'slider_index' or current_route_name == 'slider_new' or current_route_name == 'slider_edit' or current_route_name == 'slider_show'  %} class="current_section" {% endif %}>
+                    <a href="{{ path('slider_index') }}">
+                        <span class="menu_icon"><i class="material-icons">&#xE41B;</i></span>
+                        <span class="menu_title">Slider</span>
+                    </a>
+                </li>
+                <li title="Catégories" {% if current_route_name == 'category_index' or current_route_name == 'category_new' or current_route_name == 'category_edit' or current_route_name == 'category_show'  %} class="current_section" {% endif %}>
+                    <a href="{{ path('category_index') }}">
+                        <span class="menu_icon"><i class="material-icons">&#xE8B8;</i></span>
+                        <span class="menu_title">Catégories</span>
+                    </a>
+                </li>
+                <li title="Produits" {% if current_route_name == 'product_index' or current_route_name == 'product_edit' or current_route_name == 'product_show' or current_route_name == 'product_new' %} class="current_section" {% endif %}>
+                    <a href="{{ path('product_index') }}">
+                        <span class="menu_icon"><i class="material-icons">&#xE41D;</i></span>
+                        <span class="menu_title">Produits</span>
+                    </a>
+                </li>
+                <li title="Evénnements" {% if current_route_name == 'event_index' or current_route_name == 'event_edit' or current_route_name == 'event_show' or current_route_name == 'event_new' %} class="current_section" {% endif %}>
+                    <a href="{{ path('event_index') }}">
+                        <span class="menu_icon"><i class="material-icons">&#xE878;</i></span>
+                        <span class="menu_title">Evénnements</span>
+                    </a>
+                </li>
+                <li title="Devis" {% if current_route_name == 'quotation_index' %} class="current_section" {% endif %}>
+                    <a href="{{ path('quotation_index') }}">
+                        <span class="menu_icon"><i class="material-icons">&#xE24D;</i></span>
+                        <span class="menu_title">Devis</span>
+                    </a>
+                </li>
+                <li title="Candidatures" {% if current_route_name == 'application_index'  or current_route_name == 'application_show' %} class="current_section" {% endif %}>
+                    <a href="{{ path('application_index') }}">
+                        <span class="menu_icon"><i class="material-icons">&#xE2C9;</i></span>
+                        <span class="menu_title">Candidatures</span>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</aside><!-- main sidebar end -->
+<div id="page_content" style="display: none">
+    {% block body %}
+    {% endblock %}
+    <footer id="footer">
+        ©
+        <script> document.write(new Date().getFullYear()); </script>
+        - <a target="_blank" href="http://www.sbc.tn">Smart Business Challenge</a>
+    </footer>
+</div>
+{% block js %}
+    <script>
+        WebFontConfig = {
+            google: {
+                families: [
+                    'Source+Code+Pro:400,700:latin',
+                    'Roboto:400,300,500,700,400italic:latin'
+                ]
+            }
+        };
+        (function () {
+            var wf = document.createElement('script');
+            wf.src = ('https:' === document.location.protocol ? 'https' : 'http') +
+                '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+            wf.type = 'text/javascript';
+            wf.async = 'true';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(wf, s);
+        })();
+    </script>
+    {% javascripts output="js/compiled/main.js"
+    'bundles/grifoflextunisie/assets/js/common.min.js'
+    'bundles/grifoflextunisie/assets/js/uikit_custom.min.js'
+    'bundles/grifoflextunisie/assets/js/altair_admin_common.min.js'
+    'bundles/grifoflextunisie/bower_components/matchMedia/matchMedia.js'
+    'bundles/grifoflextunisie/bower_components/matchMedia/matchMedia.addListener.js'
+    'bundles/fosjsrouting/js/router.js'
+    'js/fos_js_routes.js'%}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script>
+        $(function () {
+            if (isHighDensity()) {
+                $.getScript("bower_components/dense/src/dense.js", function () {
+                    altair_helpers.retina_images();
+                });
+            }
+            if (Modernizr.touch) {
+                FastClick.attach(document.body);
+            }
+        });
+        $window.load(function () {
+            altair_helpers.ie_fix();
+        });
+        $(document).ready(function () {
+            $('#page_content').fadeIn('slow');
+        })
+    </script>
+{% endblock %}
+</body>
+</html>

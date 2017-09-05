@@ -1,0 +1,41 @@
+{% extends '::baseFront.html.twig' %}
+{% block title %} {{ 'error.title'|trans({},'front') }} - {{ parent() }} {% endblock %}
+{% block css %}
+    {{ parent() }}
+{% endblock %}
+{% block jshead %}
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+    <!-- basic-breadcrumb start -->
+    <div class="basic-breadcrumb-area gray-bg ptb-70">
+        <div class="container">
+            <div class="basic-breadcrumb text-center">
+                <h3 class="">{{ 'error.type'|trans({},'front') }}</h3>
+                <ol class="breadcrumb text-xs">
+                    <li><a href="{{ path('home') }}">{{ 'home.title'|trans({},'home') }}</a></li>
+                    <li class="active">404</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- basic-breadcrumb end -->
+    <div class="404-area ptb-120">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text-center">
+                    <div class="404-text">
+                        <h1>404</h1>
+                        <h2>{{ 'error.title'|trans({},'error') }}</h2>
+                        <p class="lead">{{ 'error.message'|trans({},'front') }}</p>
+                        <a href="{{ path('home') }}"
+                           class="btn btn-lg">{{ 'error.button.back.home'|trans({},'front') }} </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    {{ parent() }}
+{% endblock %}

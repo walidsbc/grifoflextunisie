@@ -1,0 +1,4 @@
+services:
+#    grifoflex_tunisie.example:
+#        class: SBC\GrifoflexTunisieBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

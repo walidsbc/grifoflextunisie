@@ -1,0 +1,84 @@
+{% extends '::baseFront.html.twig' %}
+{% block title %} {{ 'event.event.title'|trans({},'event') }} - {{ parent() }} {% endblock %}
+{% block css %}
+    {{ parent() }}
+{% endblock %}
+{% block jshead %}
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+
+
+    <!-- basic-portfolio-area start -->
+    <div class="portfolio-details-area gray-bg pt-70 pb-40">
+        <div class="container">
+            <div class="area-title text-center">
+                <h2>{{ 'event.eventdetails'|trans({},'event') }}</h2>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="portfolio-full-img portfolio-slider owl-carousel">
+                        <img src="{{ vich_uploader_asset(event, 'mainPictureFile') }}" alt="{{ event.mainPictureName }}" />
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-70">
+                <div class="col-md-4">
+                    <ul class="project-details">
+                        <li class="font-alt">{{ 'event.title'|trans({},'event') }}:  {{ event.title }}</li>
+                        <li class="font-alt">{{ 'event.eventDate'|trans({},'event') }}:  {{ event.eventDate|date('d/m/Y') }}</li>
+
+                    </ul>
+                </div>
+                <div class="col-md-8">
+                    <div class="row multi-columns-row">
+                        <div class="col-sm-12 col-md-12 mb-30">
+                            <h5 class="font-alt m-t-0">{{ 'event.description'|trans({},'event') }}</h5>
+                            <p>{{ event.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- basic-portfolio-area end -->
+    <div class="basic-separator"></div>
+
+    <!-- related-post-area start -->
+    <div class="related-post-area gray-bg ptb-90">
+        <div class="container">
+            <div class="area-title text-center">
+                <h2>{{ 'event.gallery'|trans({},'event') }}</h2>
+            </div>
+        </div>
+        <div id="related-active" class="portfolio-style-2 portfolio-style-3 owl-carousel">
+        {% for picture in event.pictures %}
+            <div class="portfolio-item">
+                <div class="portfolio-wrapper">
+                    <div class="portfolio-thumb">
+                        <img src="{{ vich_uploader_asset(picture, 'file') }}" alt="{{ picture.description }}"/>
+                        <div class="view-icon">
+                            <a class="popup-link" href="{{ vich_uploader_asset(picture, 'file') }}"><span class="icon-focus"></span></a>
+                        </div>
+                    </div>
+                    <div class="portfolio-caption text-center">
+                        <h4><a href="#">{{ picture.description }}</a></h4>
+
+                    </div>
+                </div>
+            </div>
+            {% else %}
+                <center>{{ 'event.nogallery'|trans({},'event') }}</center>
+            {% endfor %}
+
+        </div>
+    </div>
+    <!-- related-post-area end -->
+    <div class="basic-separator"></div>
+
+{% endblock %}
+{% block js %}
+    {{ parent() }}
+{% endblock %}

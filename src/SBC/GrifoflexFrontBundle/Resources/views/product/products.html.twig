@@ -1,0 +1,49 @@
+{% extends '::baseFront.html.twig' %}
+{% block title %} {{ 'product.list.products'|trans({},'product') }} - {{ parent() }} {% endblock %}
+{% block css %}
+    {{ parent() }}
+{% endblock %}
+{% block jshead %}
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+    <!-- basic-blo-area -->
+    <div class="basic-blog-area gray-bg ptb-90">
+        <div class="container">
+            <div class="area-title text-center">
+                <h2>{{ 'product.ourproducts'|trans({},'product') }}</h2>
+            </div>
+            <div class="filter-menu text-center mb-40">
+                <button class="active" data-filter="*">ALL</button>
+                {% for category in categories %}
+                    <button data-filter=".{{ category.id }}">{{ category.title }}</button>
+                {% endfor %}
+            </div>
+            <div id="portfolio-grid" class="row-portfolio">
+                {% for product in products %}
+                    <div class="portfolio-item branding {{ product.category.id }}">
+                        <div class="portfolio-wrapper">
+                            <div class="portfolio-thumb">
+                                <img src="{{ vich_uploader_asset(product, 'mainPictureFile') }}"
+                                     alt="{{ 'product.main.picture'|trans({},'product') }}"/>
+                                <div class="view-icon">
+                                    <a class="popup-link"
+                                       href="{{ vich_uploader_asset(product, 'mainPictureFile') }}"><span
+                                                class="icon-focus"></span></a>
+                                </div>
+                            </div>
+                            <div class="portfolio-caption caption-border text-center">
+                                <h4><a href="{{ path('product_view', { 'id': product.id } ) }}">{{ product.title }}</a>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- basic-blog-area end -->
+{% endblock %}
+{% block js %}
+    {{ parent() }}
+{% endblock %}

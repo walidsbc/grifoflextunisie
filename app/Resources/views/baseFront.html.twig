@@ -1,0 +1,145 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% block title %} {{ 'front.title'|trans({},'front') }} {% endblock %}</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- All CSS Files Here -->
+    {% block css %}
+        {% stylesheets output="css/compiled/mainFront.css" filter="cssrewrite"
+        'bundles/grifoflex/css/bootstrap.min.css'
+        'bundles/grifoflex/css/et-line-fonts.css'
+        'bundles/grifoflex/css/ionicons.min.css'
+        'bundles/grifoflex/css/magnific-popup.css'
+        'bundles/grifoflex/css/meanmenu.css'
+        'bundles/grifoflex/css/global.css'
+        'bundles/grifoflex/css/style.css'
+        'bundles/grifoflex/css/responsive.css' %}
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+        {% endstylesheets %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('icon.ico') }}"/>
+    {% endblock %}
+    {% block jshead %}
+        {% javascripts output="js/compiled/mainheaderFront.js"
+        'bundles/grifoflex/js/vendor/modernizr-2.8.3.min.js' %}
+        <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
+    <script src=""></script>
+</head>
+<body>
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<!-- Add your site or application content here -->
+<!-- PRELOADER -->
+<div class="page-loader">
+    <div class="loader">Loading...</div>
+</div>
+<!-- /PRELOADER -->
+<!-- header start -->
+{% set current_route_name = app.request.attributes.get('_route') %}
+<header id="sticky-header" {% if current_route_name == 'home' %}class="header-fixed header-transparent" {% endif %}>
+    <div class="header-area">
+        <div class="container sm-100">
+            <div class="row">
+                <div class="col-md-3 col-sm-2">
+                    <div class="logo text-upper">
+                        <h4><a href="{{ path('home') }}">{{ 'front.title'|trans({},'front') }}</a></h4>
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-10">
+                    <div class="menu-area hidden-xs">
+                        <nav>
+                            <ul class="basic-menu clearfix">
+                                <li><a href="{{ path('home') }}">{{ 'home.title'|trans({},'home') }}</a></li>
+                                <li><a href="{{ path('gfftunisia') }}">{{ 'front.grifoflex.tunisia'|trans({},'front') }}</a></li>
+                                <li><a href="{{ path('headquarter') }}">{{ 'front.grifoflex.mother'|trans({},'front') }}</a></li>
+                                <li><a href="{{ path('product_products') }}">{{ 'front.products'|trans({},'front') }}</a></li>
+                                <li><a href="{{ path('event_events') }}">{{ 'front.events'|trans({},'front') }}</a></li>
+                                <li><a href="{{ path('quotation_new') }}">{{ 'front.devis'|trans({},'front') }}</a></li>
+                                <li><a href="{{ path('application_new') }}">{{ 'front.application'|trans({},'front') }}</a></li>
+                                <li><a href="{{ path('contact_index') }}">{{ 'front.contact'|trans({},'front') }}</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!-- basic-mobile-menu -->
+                    <div class="basic-mobile-menu visible-xs">
+                        <nav id="mobile-nav">
+                           <ul>
+                               <li><a href="{{ path('home') }}">{{ 'front.title'|trans({},'front') }}</a></li>
+                               <li><a href="{{ path('gfftunisia') }}">{{ 'front.grifoflex.tunisia'|trans({},'front') }}</a></li>
+                               <li><a href="{{ path('headquarter') }}">{{ 'front.grifoflex.mother'|trans({},'front') }}</a></li>
+                               <li><a href="{{ path('product_products') }}">{{ 'front.products'|trans({},'front') }}</a></li>
+                               <li><a href="{{ path('event_events') }}">{{ 'front.events'|trans({},'front') }}</a></li>
+                               <li><a href="{{ path('quotation_new') }}">{{ 'front.devis'|trans({},'front') }}</a></li>
+                               <li><a href="{{ path('application_new') }}">{{ 'front.application'|trans({},'front') }}</a></li>
+                               <li><a href="{{ path('contact_index') }}">{{ 'front.contact'|trans({},'front') }}</a></li>
+                           </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- header end -->
+
+{% block body %}
+
+{% endblock %}
+<!-- footer start -->
+<footer>
+    <div class="basic-footer text-center ptb-90">
+        <div class="container">
+            <div class="footer-logo mb-30">
+                <h3><a href="{{ path('home') }}">{{ 'front.title'|trans({},'front') }} </a></h3>
+            </div>
+            <div class="social-icon">
+                <a href="#"><i class="ion-social-facebook"></i></a>
+                <a href="#"><i class="ion-social-googleplus"></i></a>
+                <a href="#"><i class="ion-social-instagram"></i></a>
+                <a href="#"><i class="ion-social-dribbble"></i></a>
+            </div>
+            <div class="footer-menu mt-30">
+                <nav>
+                    <ul>
+                        <li><a href="{{ path('home') }}">{{ 'home.title'|trans({},'home') }}</a></li>
+                        <li><a href="{{ path('gfftunisia') }}">{{ 'front.grifoflex.tunisia'|trans({},'front') }}</a></li>
+                        <li><a href="{{ path('headquarter') }}">{{ 'front.grifoflex.mother'|trans({},'front') }}</a></li>
+                        <li><a href="{{ path('quotation_new') }}">{{ 'front.devis'|trans({},'front') }}</a></li>
+                        <li><a href="{{ path('contact_index') }}">{{ 'front.contact'|trans({},'front') }}</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="copyright mt-20">
+                <p>{{ 'front.developped.by'|trans({},'front') }} <a target="_blank" href="http://www.sbc.tn">Smart Business Challenge</a> <script> document.write(new Date().getFullYear()); </script></p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- footer end -->
+
+{% block js %}
+<!-- All js plugins here -->
+{% javascripts output="js/compiled/mainFront.js"
+'bundles/grifoflex/js/vendor/jquery-1.12.0.min.js'
+'bundles/grifoflex/js/bootstrap.min.js'
+'bundles/grifoflex/js/isotope.pkgd.min.js'
+'bundles/grifoflex/js/imagesloaded.pkgd.min.js'
+'bundles/grifoflex/js/jquery.magnific-popup.min.js'
+'bundles/grifoflex/js/jquery.meanmenu.js'
+'bundles/grifoflex/js/plugins.js'
+'bundles/grifoflex/js/main.js'
+'bundles/fosjsrouting/js/router.js'
+'js/fos_js_routes.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+{% endblock %}
+</body>
+</html>

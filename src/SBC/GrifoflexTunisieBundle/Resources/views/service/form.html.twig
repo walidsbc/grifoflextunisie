@@ -1,0 +1,80 @@
+<div id="page_content_inner">
+    <div class="md-card">
+        <div class="md-card-content large-padding">
+            {{ form_start(form, {'attr':{'class':'uk-form-stacked', 'id':'form_validation'}}) }}
+            {{ form_errors(form) }}
+            <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-width-medium-1-2">
+                    <div class="parsley-row">
+                        <div class="uk-input-group">
+                            <span class="uk-input-group-addon">
+                                <i class="md-list-addon-icon material-icons">&#xE8B8;</i>
+                            </span>
+                            {{ form_label(form.title,   'service.title'|trans({},'service')    ) }}
+                            {{ form_widget(form.title, {attr: {'class':'md-input', 'data-parsley-title':'3'}}) }}
+                        </div>
+                        <span>     {{ form_errors(form.title) }} </span>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-width-medium-1-1">
+                    <div class="parsley-row">
+                        <div class="uk-input-group">
+                            <span class="uk-input-group-addon">
+                                <i class="md-list-addon-icon material-icons"></i>
+                            </span>
+                            {{ form_label(form.description,   'service.description'|trans({},'service')    ) }}
+                            {{ form_widget(form.description, {attr: {'class':'md-input'}}) }}
+                        </div>
+                        <span>     {{ form_errors(form.description) }} </span>
+                    </div>
+                </div>
+            </div>
+            <div class="md-fab-wrapper">
+                <button class="md-fab md-fab-accent md-fab-wave-light" href="#" id="service_add"
+                        data-uk-tooltip="{cls:'uk-tooltip-small',pos:'left'}" title="{{ 'service.buttons.save'|trans({},'service')   }}" name="save">
+                    <i class="material-icons">&#xE161;</i>
+                </button>
+            </div>
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        var domTitle = $('#sbc_grifoflextunisiebundle_service_title');
+        var oldTitle = domTitle.val().toUpperCase();
+        domTitle.on('change', function () {
+            var title = domTitle.val().toUpperCase();
+            if (title !== oldTitle) {
+                $.ajax({
+                    async: true,
+                    type: "POST",
+                    url: '{{ app.request.getSchemeAndHttpHost() ~ app.request.baseUrl }}'+Routing.generate('service_check_unique', { title: title }),
+                    success: function (response) {
+                        if (response.exists) {
+                            window.Parsley.addValidator('title', {
+                                validateString: function () {
+                                    return false;
+                                },
+                                messages: {
+                                    en: 'This service exists already',
+                                    fr: "Ce service existe déjà"
+                                }
+                            });
+                        } else {
+                            window.Parsley.addValidator('title', {
+                                validateString: function () {
+                                    return true;
+                                }
+                            });
+                        }
+                        domTitle.parsley().validate();
+                    }
+                });
+            }
+        });
+    });
+</script>

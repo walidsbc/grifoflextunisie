@@ -1,0 +1,109 @@
+{% extends '::baseFront.html.twig' %}
+{% block title %} {{ 'home.title'|trans({},'home') }} - {{ parent() }} {% endblock %}
+{% block css %}
+    {{ parent() }}
+{% endblock %}
+
+{% block jshead %}
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+
+    <!-- basic-slider start -->
+    <div class="slider-section">
+        <div class="slider-active owl-carousel">
+            {% for slider in sliders %}
+                <div class="single-slider slider-screen bg-black-alfa-40"
+                     style="background-image: url({{ vich_uploader_asset(slider, 'mainPictureFile') }});">
+                    <div class="container">
+                        <div class="slider-content text-white">
+                            <h2>{{ slider.title }}</h2>
+                            <p>{{ slider.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- basic-slider end -->
+
+    <!-- basic-blog-area -->
+    <div class="basic-blo-area gray-bg pt-90 pb-30">
+        <div class="container">
+            <div class="area-title text-center">
+                <h2>Our Blog</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi tempora veritatis nemo aut ea iusto
+                    eos est expedita, quas ab adipisci.</p>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-md-4 blog-item">
+                    <!-- POST -->
+                    <article class="post">
+                        <div class="post-thumbnail">
+                            <img src="{{ asset('bundles/grifoflex/img/blog/1.jpg') }}" alt="">
+                        </div>
+                        <div class="post-header">
+                            <div class="post-meta">
+                                By <a href="#">Mark Stone</a>, 23 November, 2015
+                            </div>
+                            <h2 class="post-title"><a href="blog-single.html">The Ultimate Renters Guide</a></h2>
+                        </div>
+                        <div class="post-content">
+                            <p>Grass there without lights be years male have and grass firmament kind bring, is thing
+                                doesn't herb.</p>
+                            <a class="post-more" href="blog-single.html">Read more &rarr;</a>
+                        </div>
+                    </article>
+                    <!-- /POST -->
+                </div>
+                <div class="col-sm-6 col-md-4 blog-item">
+                    <!-- POST -->
+                    <article class="post">
+                        <div class="post-thumbnail embed-responsive embed-responsive-16by9">
+                            <iframe src="https://player.vimeo.com/video/57175742?color=e2007a&title=0&byline=0&portrait=0&badge=0"></iframe>
+                        </div>
+                        <div class="post-header">
+                            <div class="post-meta">
+                                By <a href="#">Mark Stone</a>, 23 November, 2015
+                            </div>
+                            <h2 class="post-title"><a href="blog-single.html">Living Big in Tiny Houses</a></h2>
+                        </div>
+                        <div class="post-content">
+                            <p>Grass there without lights be years male have and grass firmament kind bring, is thing
+                                doesn't herb.</p>
+                            <a class="post-more" href="blog-single.html">Read more &rarr;</a>
+                        </div>
+                    </article>
+                    <!-- /POST -->
+                </div>
+                <div class="col-sm-6 col-md-4 blog-item">
+                    <!-- POST -->
+                    <article class="post">
+                        <div class="post-thumbnail blog-slider owl-carousel">
+                            <img src="{{ asset('bundles/grifoflex/img/blog/6.jpg') }}" alt="">
+                            <img src="{{ asset('bundles/grifoflex/img/blog/7.jpg') }}" alt="">
+                            <img src="{{ asset('bundles/grifoflex/img/blog/3.jpg') }}" alt="">
+                        </div>
+                        <div class="post-header">
+                            <div class="post-meta">
+                                By <a href="#">Mark Stone</a>, 23 November, 2015
+                            </div>
+                            <h2 class="post-title"><a href="blog-single.html">The Ultimate Renters Guide</a></h2>
+                        </div>
+                        <div class="post-content">
+                            <p>Grass there without lights be years male have and grass firmament kind bring, is thing
+                                doesn't herb.</p>
+                            <a class="post-more" href="blog-single.html">Read more &rarr;</a>
+                        </div>
+                    </article>
+                    <!-- /POST -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- basic-blog-area end -->
+{% endblock %}
+{% block js %}
+    {{ parent() }}
+{% endblock %}

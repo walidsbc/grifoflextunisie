@@ -1,0 +1,26 @@
+front:
+    resource: "@GrifoflexBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+back:
+    resource: "@GrifoflexTunisieBundle/Controller"
+    type:     annotation
+
+fos_user:
+    resource: "@UserBundle/Resources/config/routing.yml"
+    prefix:   /back-office
+
+user:
+    resource: "@UserBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+utils:
+    resource: "@UtilsBundle/Resources/config/routing.yml"
+    prefix:   /back-office/
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+

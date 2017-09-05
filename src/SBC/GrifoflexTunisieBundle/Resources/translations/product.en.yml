@@ -1,0 +1,29 @@
+product.title: Title
+product.product.title: 'Show a product'
+product.description: Description
+product.createdAt: 'Created at'
+product.actions: Actions
+product.list.products: 'List of products'
+product.list.all: 'List of all products'
+product.update: 'Update a product'
+product.delete: 'Delete a product'
+product.main.picture: 'Main picture'
+product.details: Details
+product.gallery: Gallery
+product.infos: Infos
+product.buttons.update: Update
+product.buttons.delete: Delete
+product.buttons.save: Save
+product.buttons.show: Show
+product.buttons.add: 'Add a product'
+product.form.update: 'Product update''s form'
+product.form.title: 'Please fill in the fields'
+product.form.add: 'Product add''s form'
+product.show: 'Show a product'
+product.product: Product
+product.nogallery: 'Not yet of pictures'
+product.technicalSheetFile: 'Technical sheet'
+product.technicalSheetFile.view: 'View'
+product.category: 'Category'
+product.productdetails: 'Product details'
+product.ourproducts: 'Our products'

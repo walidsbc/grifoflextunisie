@@ -1,0 +1,101 @@
+{% extends "::base.html.twig" %}
+{% block title %}
+    Lecture d'une candidature {{ parent() }}
+{% endblock %}
+{% block body %}
+    <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
+        <h1>{{ application.fullName }}</h1>
+        <span class="uk-text-muted uk-text-upper uk-text-small">{{ application.creationDate|date('d/m/Y') }}</span>
+    </div>
+    <div id="page_content_inner">
+        <div class="uk-grid uk-grid-medium" data-uk-grid-margin>
+            <div class="uk-width-medium-1-2">
+                <div class="md-card">
+                    <div class="md-card-toolbar">
+                        <h3 class="md-card-toolbar-heading-text">
+                            CV
+                        </h3>
+                    </div>
+                    <div class="md-card-content">
+                        <div class="uk-width-large-1-3">
+                            <span class="uk-text-muted">
+                                <strong>
+                                    <a target="_blank" href="{{ vich_uploader_asset(application, 'cvFile') }}">Visualiser</a>
+                                </strong>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-width-medium-1-2">
+                <div class="md-card">
+                    <div class="md-card-toolbar">
+                        <h3 class="md-card-toolbar-heading-text">
+                            Lettre de motivation
+                        </h3>
+                    </div>
+                    <div class="md-card-content">
+                        <div class="uk-width-large-1-3">
+                            <span class="uk-text-muted">
+                                <strong>
+                                    <a target="_blank" href="{{ vich_uploader_asset(application, 'motivationFile') }}">Visualiser</a>
+                                </strong>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="uk-width-xLarge-7-10 uk-width-large-10-10">
+                <div class="md-card">
+                    <div class="md-card-toolbar">
+                        <h3 class="md-card-toolbar-heading-text">
+                            Détails du candidature
+                        </h3>
+                    </div>
+                    <div class="md-card-content">
+                        <ul class="md-list">
+                            <li>
+                                <div class="md-list-content">
+                                    <span class="uk-text-small uk-text-muted uk-display-block">Nom et prénom </span>
+                                    <span class="md-list-heading uk-text-large">{{ application.fullName }}</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="md-list-content">
+                                    <span class="uk-text-small uk-text-muted uk-display-block">Date de création </span>
+                                    <span class="md-list-heading uk-text-large">
+                                        {{ application.creationDate|date('d/m/Y H:i') }}
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="md-list-content">
+                                    <span class="uk-text-small uk-text-muted uk-display-block">Type de la demande </span>
+                                    <span class="md-list-heading uk-text-large"> {{ application.requestType }}</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="md-list-content">
+                                    <span class="uk-text-small uk-text-muted uk-display-block">Type de la candidature </span>
+                                    <span class="md-list-heading uk-text-large"> {{ application.applicationType }}</span>
+                                </div>
+                            </li>
+                            {% if application.applicationType == 'Suite à une offre publiée' %}
+                                <li>
+                                    <div class="md-list-content">
+                                        <span class="uk-text-small uk-text-muted uk-display-block">Référence de l'offre</span>
+                                        <span class="md-list-heading uk-text-large"> {{ application.referenceOffre }}</span>
+                                    </div>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    {{ parent() }}
+{% endblock %}

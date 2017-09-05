@@ -1,0 +1,23 @@
+event.title: titre
+event.description: Déscription
+event.createdAt: 'Date de création'
+event.actions: Actions
+event.list.events: 'Liste des événnements'
+event.list.all: 'Liste de tous les événnements'
+event.update: 'Modifier un événnement'
+event.delete: 'Supprimer un événnement'
+event.main.picture: 'Image principale'
+event.details: Détails
+event.gallery: Gallerie
+event.infos: Infos
+event.buttons.update: Modifier
+event.buttons.delete: Supprimer
+event.buttons.save: Enregistrer
+event.buttons.show: Afficher
+event.buttons.add: 'Ajouter un événnement'
+event.form.update: 'Formulaire de modification du événnement'
+event.form.title: 'veuillez bien remplir les champs'
+event.form.add: 'Formulaire d''ajout du événnement'
+event.show: 'Afficher un événnement'
+event.event: Evénnement
+event.nogallery: 'Pas encore d''images'

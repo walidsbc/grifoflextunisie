@@ -1,0 +1,105 @@
+{% extends '::baseFront.html.twig' %}
+{% block title %} {{ 'product.product.title'|trans({},'product') }} - {{ parent() }} {% endblock %}
+{% block css %}
+    {{ parent() }}
+{% endblock %}
+{% block jshead %}
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+    <!-- basic-portfolio-area start -->
+    <div class="portfolio-details-area gray-bg pt-70 pb-40">
+        <div class="container">
+            <div class="area-title text-center">
+                <h2>{{ 'product.productdetails'|trans({},'product') }}</h2>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-xs-12">
+                    <div class="widget">
+                        <h6 class="text-uppercase widget-title">{{ 'product.details'|trans({},'product') }}</h6>
+                        <ul class="icons-list">
+                            <li>
+                                <a href="#"> {{ 'product.title'|trans({},'product') }}
+                                    <span class="pull-right">{{ product.title }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"> {{ 'product.createdAt'|trans({},'product') }}
+                                    <span class="pull-right">{{ product.createdAt|date('d/m/Y') }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"> {{ 'product.category'|trans({},'product') }}
+                                    <span class="pull-right">{{ product.category.title }}</span>
+                                </a>
+                            </li>
+                            {% if product.technicalSheetName is not null %}
+                                <li>
+                                    <a href="{{ vich_uploader_asset(product, 'technicalSheetFile') }}" target="_blank">
+                                        {{ 'product.technicalSheetFile'|trans({},'product') }}
+                                        <span class="pull-right">{{ 'product.technicalSheetFile.view'|trans({},'product') }}</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div class="widget">
+                        <h6 class="text-uppercase widget-title">{{ 'product.description'|trans({},'product') }}</h6>
+                        <p>
+                            {{ product.description }}
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-9 col-xs-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="portfolio-full-img portfolio-slider owl-carousel">
+                                <img src="{{ vich_uploader_asset(product, 'mainPictureFile') }}"
+                                     alt="{{ product.mainPictureName }}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- basic-portfolio-area end -->
+        <div class="basic-separator"></div>
+        <!-- related-post-area start -->
+        <div class="related-post-area gray-bg ptb-90">
+            <div class="container">
+                <div class="area-title text-center">
+                    <h2>{{ 'product.gallery'|trans({},'product') }}</h2>
+                </div>
+            </div>
+            <div id="related-active" class="portfolio-style-2 portfolio-style-3 owl-carousel">
+                {% for picture in product.pictures %}
+                    <div class="portfolio-item">
+                        <div class="portfolio-wrapper">
+                            <div class="portfolio-thumb">
+                                <img src="{{ vich_uploader_asset(picture, 'file') }}" alt="{{ picture.description }}"/>
+                                <div class="view-icon">
+                                    <a class="popup-link" href="{{ vich_uploader_asset(picture, 'file') }}"><span
+                                                class="icon-focus"></span></a>
+                                </div>
+                            </div>
+                            <div class="portfolio-caption text-center">
+                                <h4><a href="#">{{ picture.description }}</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <center>{{ 'product.nogallery'|trans({},'product') }}</center>
+                {% endfor %}
+            </div>
+        </div>
+        <!-- related-post-area end -->
+    </div>
+    <div class="basic-separator"></div>
+
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+{% endblock %}

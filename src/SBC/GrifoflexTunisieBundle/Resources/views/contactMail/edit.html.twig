@@ -1,0 +1,26 @@
+{% extends "::base.html.twig" %}
+{% block css %}
+    {{ parent() }}
+{% endblock %}
+{% block title %}
+    {% trans %}Modifier un mail de contact {% endtrans %} - {{ parent() }}
+{% endblock %}
+{% block body %}
+    <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
+        <h1>{% trans %}Formulaire de modification du mail de contact{% endtrans %}</h1>
+        <span class="uk-text-muted uk-text-upper uk-text-small">{% trans %}veuillez bien remplir les champs{% endtrans %}</span>
+    </div>
+    {{ include("GrifoflexTunisieBundle:contactMail:form.html.twig") }}
+{% endblock %}
+{% block js %}
+    {{ parent() }}
+    <script>
+        altair_forms.parsley_validation_config();
+    </script>
+    {% javascripts output="js/compiled/mainSimpleValidation.js"
+    'bundles/grifoflextunisie/assets/js/kendoui_custom.min.js'
+    'bundles/grifoflextunisie/bower_components/parsleyjs/dist/parsley.min.js'
+    'bundles/grifoflextunisie/assets/js/pages/forms_validation.min.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

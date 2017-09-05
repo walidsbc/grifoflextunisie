@@ -1,0 +1,113 @@
+{% extends "::base.html.twig" %}
+{% block css %}
+    {{ parent() }}
+{% endblock %}
+{% block title %}
+    Afficher les devis - {{ parent() }}
+{% endblock %}
+{% block body %}
+    <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
+        <h1>Liste des devis</h1>
+        <span class="uk-text-muted uk-text-upper uk-text-small">Liste de tous les devis</span>
+    </div>
+    <div id="page_content_inner">
+        <div class="md-card uk-margin-medium-bottom">
+            <div class="md-card-content">
+                <div class="dt_colVis_buttons"></div>
+                <table id="dt_tableExport" class="uk-table uk-table-hover" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>Numéro</th>
+                        <th>Nom & prénom</th>
+                        <th>Tél</th>
+                        <th>Date de création</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for quotation in quotations %}
+                        <tr>
+                            <td>
+                                <a data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}"
+                                   target="_blank"
+                                   title="Afficher"
+                                   href="{{ path('quotation_show', { 'id': quotation.id }) }}"> {{ quotation.id }}</a>
+                            </td>
+                            <td>  {{ quotation.fullName }}</td>
+                            <td>  {{ quotation.phoneNumber }}</td>
+                            <td>  {{ quotation.createdAt|date('d/m/Y H:i') }}</td>
+
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    {{ parent() }}
+    {% javascripts output="js/compiled/mainIndex.js"
+    'bundles/grifoflextunisie/bower_components/datatables/media/js/jquery.dataTables.min.js'
+    'bundles/grifoflextunisie/bower_components/datatables-buttons/js/dataTables.buttons.js'
+    'bundles/grifoflextunisie/assets/js/custom/datatables/buttons.uikit.js'
+    'bundles/grifoflextunisie/bower_components/jszip/dist/jszip.min.js'
+    'bundles/grifoflextunisie/bower_components/pdfmake/build/pdfmake.min.js'
+    'bundles/grifoflextunisie/bower_components/pdfmake/build/vfs_fonts.js'
+    'bundles/grifoflextunisie/bower_components/datatables-buttons/js/buttons.colVis.js'
+    'bundles/grifoflextunisie/bower_components/datatables-buttons/js/buttons.html5.js'
+    'bundles/grifoflextunisie/bower_components/datatables-buttons/js/buttons.print.js'
+    'bundles/grifoflextunisie/assets/js/custom/datatables/datatables.uikit.min.js'
+    'bundles/grifoflextunisie/assets/js/pages/plugins_datatables.min.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script>
+        function confirmDelete(id) {
+            UIkit.modal.confirm('Voulez vous vraiment supprimer cet événnement ?',
+                function () {
+                    deleteIt(id);
+                },
+                {
+                    labels: {
+                        Ok: 'Oui',
+                        Cancel: 'Non'
+                    }
+                });
+        }
+
+        function deleteIt(id) {
+            $.ajax({
+                url: '{{ app.request.getSchemeAndHttpHost() ~ app.request.baseUrl }}' + Routing.generate('quotation_delete', {id: id}),
+                type: 'DELETE',
+                success: function (response) {
+                    if (response.deleted) {
+                        UIkit.modal.alert('L\' événnement a été supprimé avec succès.',
+                            {
+                                labels: {
+                                    Ok: 'Fermer'
+                                }
+                            }
+                        ).on('hide.uk.modal', function () {
+                            location.href = '{{ app.request.getSchemeAndHttpHost() ~ app.request.baseUrl }}' + Routing.generate('quotation_index');
+                        });
+                    }
+                    else {
+                        UIkit.modal.alert('Vous n\'avez pas le droit de supprimer cet événnement pour des raisons de sécurité',
+                            {
+                                labels: {
+                                    Ok: 'Fermer'
+                                }
+                            });
+                    }
+                },
+                error: function () {
+                    UIkit.modal.alert('Une exception s\'est produite pendant la suppression. Veuillez réessayer ultérieurement',
+                        {
+                            labels: {
+                                Ok: 'Fermer'
+                            }
+                        });
+                }
+            });
+        }
+    </script>
+{% endblock %}

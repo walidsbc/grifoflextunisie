@@ -1,0 +1,255 @@
+<div id="page_content_inner">
+    {{ form_start(form, {'attr':{'class':'uk-form-stacked', 'id':'form_validation'}}) }}
+    {{ form_errors(form) }}
+    <div class="uk-grid uk-grid-medium" data-uk-grid-margin>
+        <div class="uk-width-medium-1-1 uk-width-medium-1-1">
+            <div class="md-card">
+                <div class="md-card-toolbar">
+                    <h3 class="md-card-toolbar-heading-text">
+                        Détails
+                    </h3>
+                </div>
+                <div class="md-card-content large-padding">
+                    <div class="uk-grid uk-grid-divider uk-grid-medium" data-uk-grid-margin>
+                        <div class="uk-width-large-1-2">
+                            <div class="uk-form-row">
+                                <div class="parsley-row">
+                                    {{ form_label(form.title,   'Titre'  ) }}
+                                    {{ form_widget(form.title) }}
+                                    <span>     {{ form_errors(form.title) }} </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="uk-form-row">
+                            <div class="parsley-row">
+                                <span class="uk-form-help-block">{{ form_label(form.category,    'Catégorie' ) }}</span>
+                                {{ form_widget(form.category) }}
+                                <span>     {{ form_errors(form.category) }} </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="uk-width-medium-3-10 uk-width-medium-3-10">
+            <div class="md-card">
+                <div class="md-card-toolbar">
+                    <h3 class="md-card-toolbar-heading-text">
+                        Image principale
+                    </h3>
+                </div>
+                <div class="md-card-content">
+                    <div class="uk-margin-bottom uk-text-center uk-position-relative">
+                        {{ form_widget(form.mainPictureFile) }}
+                        <span>     {{ form_errors(form.mainPictureFile) }} </span>
+                    </div>
+                </div>
+            </div>
+            <div class="md-card">
+                <div class="md-card-toolbar">
+                    <h3 class="md-card-toolbar-heading-text">
+                        Fiche technique
+                    </h3>
+                </div>
+                <div class="md-card-content">
+                    <div class="uk-margin-bottom uk-text-center uk-position-relative">
+                        {{ form_widget(form.technicalSheetFile) }}
+                        <span>     {{ form_errors(form.technicalSheetFile) }} </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="uk-width-xLarge-7-10 uk-width-large-7-10">
+            <div class="md-card">
+                <div class="md-card-toolbar">
+                    <h3 class="md-card-toolbar-heading-text">
+                        Déscription
+                    </h3>
+                </div>
+                <div class="md-card-content large-padding">
+                    <div class="uk-form-row">
+                        <div class="parsley-row">
+                            {{ form_label(form.description,   "Déscription" ) }}
+                            {{ form_widget(form.description) }}
+                            <span>     {{ form_errors(form.description) }} </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="uk-width-xLarge-1-1 uk-width-large-1-1">
+            <div class="md-card">
+                <div class="md-card-toolbar">
+                    <h3 class="md-card-toolbar-heading-text">
+                        Gallerie
+                    </h3>
+                </div>
+                <div class="md-card-content large-padding">
+                    {% if product.id == 0 or form.pictures|length ==0 %}
+                        {{ form_widget(form.pictures, {'attr': {'class': 'uk-grid'}} ) }}
+                    {% else %}
+                        <div id="{{ form.pictures.vars.id }}" class="uk-grid" data-uk-grid-margin
+                             data-prototype="{{ form_widget(form.pictures.vars.prototype)|e('html_attr') }}">
+                            {% for picture in form.pictures %}
+                                <div class="uk-width-medium-1-4 blockSection">
+                                    <div class="uk-form-row">
+                                        <div class="parsley-row">
+                                            Image
+                                            {% set urlPicture = asset('images/')~  product.pictures.get(loop.index-1).fileName %}
+                                            {{ form_widget(picture.file,
+                                            {'attr': {'class': 'dropify-fr', 'data-default-file': urlPicture }}) }}
+                                            <span>{{ form_errors(picture.file) }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="uk-form-row">
+                                        <div class="parsley-row">
+                                            {{ form_label(picture.description,"product.description"|trans({},'product') ) }}
+                                            {{ form_widget(picture.description,{'attr': {'class': 'md-input' }}) }}
+                                            <span>{{ form_errors(picture.description) }}</span>
+                                        </div>
+                                    </div>
+                                    <a class="btn-close">
+                                        <i class="material-icons md-24">&#xE872;</i>
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <a id="addPicture"><i class="material-icons md-24">&#xE146;</i></a>
+                </div>
+            </div>
+        </div>
+        <div class="md-fab-wrapper">
+            <button type="submit" class="md-fab md-fab-accent md-fab-wave-light" id="product_add"
+                    data-uk-tooltip="{cls:'uk-tooltip-small',pos:'left'}"
+                    title="{{ 'product.buttons.save'|trans({},'product') }}">
+                <i class="material-icons">&#xE161;</i>
+            </button>
+        </div>
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
+</div>
+<script>
+    function templatePicture() {
+        return '<div class="uk-width-medium-1-4 bloc">' +
+            '<div class="uk-form-row">' +
+            '<div class="parsley-row">' +
+            '<label>Image</label>' +
+            '#picture#' +
+            '<span></span>' +
+            '</div>' +
+            '</div>' +
+            '<div class="uk-form-row">' +
+            '<div class="parsley-row">' +
+            '<label>Déscription</label>' +
+            '#description#' +
+            '<span></span>' +
+            '</div>' +
+            '</div>' +
+            '<a class="btn-close"><i class="material-icons md-24">&#xE872;</i></a>' +
+            '</div>'
+            ;
+    }
+
+    $(function () {
+        var picturesDOM = $('#' + '{{ form.pictures.vars.id }}');
+        var buildPrototypes = {
+            counterPictures: picturesDOM.children().length,
+            prototypePictures: picturesDOM.attr('data-prototype'),
+            pictures: picturesDOM,
+            init: function () {
+                $('#addPicture').on('click', function () {
+                    buildPrototypes.buildPictureSection();
+                });
+                $('.btn-close').on('click', function () {
+                    this.closest('div').remove();
+                });
+            },
+            buildPictureSection: function () {
+                this.counterPictures++;
+                var prototypePicturesDOM = $('<div/>').html(this.prototypePictures).contents();
+                var temp = SFCollectionAnalyzer.buildTemplate(prototypePicturesDOM, templatePicture());
+                var block = temp.replace(/__name__/g, this.counterPictures);
+                this.pictures.append(block);
+                this.reInit();
+            },
+            reInit: function () {
+                $('.btn-close').on('click', function () {
+                    this.closest('div').remove();
+                });
+                altair_md.init();
+                this.pictures.find('input[type=file]').dropify({
+                    messages: {
+                        'default': 'Cliquez ou glissez / déposez un fichier ici',
+                        'replace': 'Cliquez ou glissez / déposez un fichier ici pour remplacer',
+                        'remove': 'Supprimer',
+                        'error': 'Une erreur s\'est survenue'
+                    }
+                });
+            }
+        };
+        buildPrototypes.init();
+        var picture = $('#' + '{{ form.mainPictureFile.vars.id }}');
+        var technicalSheet = $('#' + '{{ form.technicalSheetFile.vars.id }}');
+        $('.dropify-clear').on('click', function () {
+            picture.prop('required', false);
+            technicalSheet.prop('required', false);
+        });
+        picture.dropify({
+            defaultFile: '{{ vich_uploader_asset(product, 'mainPictureFile') }}',
+            messages: {
+                'default': 'Cliquez ou glissez / déposez un fichier ici',
+                'replace': 'Cliquez ou glissez / déposez un fichier ici pour remplacer',
+                'remove': 'Supprimer',
+                'error': 'Une erreur s\'est survenue'
+            }
+        });
+        technicalSheet.dropify({
+        defaultFile: '{{ vich_uploader_asset(product, 'technicalSheetFile') }}',
+        messages: {
+        'default': 'Cliquez ou glissez / déposez un fichier ici',
+        'replace': 'Cliquez ou glissez / déposez un fichier ici pour remplacer',
+        'remove': 'Supprimer',
+        'error': 'Une erreur s\'est survenue'
+        }
+        });
+        $('.select').kendoComboBox({
+            filter: "contains",
+            suggest: true
+        });
+        var domTitle = $('#sbc_grifoflextunisiebundle_product_title');
+        var oldtitle = domTitle.val().toUpperCase();
+        domTitle.on('change', function () {
+            var title = domTitle.val().toUpperCase();
+            if (title !== oldtitle) {
+                $.ajax({
+                    async: true,
+                    type: "POST",
+                    url: '{{ app.request.getSchemeAndHttpHost() ~ app.request.baseUrl }}' + Routing.generate('product_check_unique', {title: title}),
+                    success: function (json) {
+                        if (json.exists) {
+                            window.Parsley.addValidator('title', {
+                                validateString: function () {
+                                    return false;
+                                },
+                                messages: {
+                                    en: 'This product exists already',
+                                    fr: "Ce produit existe déjà"
+                                }
+                            });
+                        } else {
+                            window.Parsley.addValidator('title', {
+                                validateString: function () {
+                                    return true;
+                                }
+                            });
+                        }
+                        domTitle.parsley().validate();
+                    }
+                });
+            }
+        });
+    });
+
+</script>

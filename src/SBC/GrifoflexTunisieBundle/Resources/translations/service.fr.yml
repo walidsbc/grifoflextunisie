@@ -1,0 +1,20 @@
+service.title: titre
+service.description: Déscription
+service.createdAt: 'Date de création'
+service.actions: Actions
+service.list.services: 'Liste des services'
+service.list.all: 'Liste de tous les services'
+service.update: 'Modifier un service'
+service.delete: 'Supprimer un service'
+service.details: Détails
+service.infos: Infos
+service.buttons.update: Modifier
+service.buttons.delete: Supprimer
+service.buttons.save: Enregistrer
+service.buttons.show: Afficher
+service.buttons.add: 'Ajouter un service'
+service.form.update: 'Formulaire de modification du service'
+service.form.title: 'veuillez bien remplir les champs'
+service.form.add: 'Formulaire d''ajout du service'
+service.show: 'Afficher un service'
+service.service: Service

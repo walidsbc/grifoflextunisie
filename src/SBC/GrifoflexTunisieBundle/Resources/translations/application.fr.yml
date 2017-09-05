@@ -1,0 +1,14 @@
+application.list.all: __application.list.all
+application.list.applications: __application.list.applications
+application.fullname: __application.fullname
+application.createdAt: __application.createdAt
+application.type.demande: __application.type.demande
+application.type.application: __application.type.application
+application.buttons.show: __application.buttons.show
+application.show: __application.show
+application.cv: __application.cv
+application.open.cv: __application.open.cv
+application.motivation: __application.motivation
+application.open.motivation: __application.open.motivation
+application.details: __application.details
+application.offre.reference: __application.offre.reference

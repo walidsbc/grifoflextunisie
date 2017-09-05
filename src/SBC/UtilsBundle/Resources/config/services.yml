@@ -1,0 +1,17 @@
+services:
+    shrink_text_extension:
+        class: SBC\UtilsBundle\Twig\ShrinkDescriptionExtension
+        public: true
+        tags:
+            - { name: twig.extension }
+
+    fix_string_length_extension:
+            class: SBC\UtilsBundle\Twig\FixStringLenghtExtension
+            public: true
+            tags:
+                - { name: twig.extension }
+#    utils.example:
+#        class: SBC\UtilsBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+

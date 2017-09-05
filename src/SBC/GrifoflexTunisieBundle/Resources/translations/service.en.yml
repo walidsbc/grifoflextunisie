@@ -1,0 +1,20 @@
+service.title: Title
+service.description: Description
+service.createdAt: 'Created at'
+service.actions: Actions
+service.list.services: 'List of services'
+service.list.all: 'List of all services'
+service.update: 'Update a service'
+service.delete: 'Delete a service'
+service.details: Details
+service.infos: Infos
+service.buttons.update: Update
+service.buttons.delete: Delete
+service.buttons.save: Save
+service.buttons.show: Show
+service.buttons.add: 'Add a service'
+service.form.update: 'Service update''s form'
+service.form.title: 'Please fill in the fields'
+service.form.add: 'Service add''s form'
+service.show: 'Show a service'
+service.service: Service

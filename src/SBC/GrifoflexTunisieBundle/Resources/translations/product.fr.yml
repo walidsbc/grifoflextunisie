@@ -1,0 +1,23 @@
+product.title: titre
+product.description: Déscription
+product.createdAt: 'Date de création'
+product.actions: Actions
+product.list.products: 'Liste des produits'
+product.list.all: 'Liste de tous les produits'
+product.update: 'Modifier un produit'
+product.delete: 'Supprimer un produit'
+product.main.picture: 'Image principale'
+product.details: Détails
+product.gallery: Gallerie
+product.infos: Infos
+product.buttons.update: Modifier
+product.buttons.delete: Supprimer
+product.buttons.save: Enregistrer
+product.buttons.show: Afficher
+product.buttons.add: 'Ajouter un produit'
+product.form.update: ''
+product.form.title: ''
+product.form.add: 'Formulaire d''ajout du produit'
+product.show: 'Afficher un produit'
+product.product: Produit
+product.nogallery: 'Pas encore d''images'

@@ -1,0 +1,126 @@
+{#{{ form_start(form, {'attr':{'id':'contact-form'}}) }}#}
+<form id="contact-form" action="{{ path('quotation_new') }}" method="post">
+    {{ form_errors(form) }}
+<div class="row">
+    <div class="col-md-6 form-group">
+        <label class="sr-only">Full Name</label>
+        {{ form_widget(form.fullName , {'attr':{'class':'form-control input-lg'}}) }}
+        {{ form_errors(form.fullName) }}
+        <p class="help-block text-danger"></p>
+    </div>
+    <div class="col-md-6 form-group">
+        <label class="sr-only">Email</label>
+        {{ form_widget(form.email , {'attr':{'class':'form-control input-lg'}}) }}
+        {{ form_errors(form.email) }}
+        <p class="help-block text-danger"></p>
+    </div>
+    <div class="col-md-12 form-group">
+        <label class="sr-only">Phone number</label>
+        {{ form_widget(form.phoneNumber , {'attr':{'class':'form-control input-lg'}}) }}
+        {{ form_errors(form.phoneNumber) }}
+        <p class="help-block text-danger"></p>
+    </div>
+    <div class="col-md-12 form-group">
+        <label class="sr-only">Company</label>
+        {{ form_widget(form.company , {'attr':{'class':'form-control input-lg'}}) }}
+        {{ form_errors(form.company) }}
+        <p class="help-block text-danger"></p>
+    </div>
+    <div class="col-md-12 form-group">
+        <label class="sr-only">Address</label>
+        {{ form_widget(form.address , {'attr':{'class':'form-control input-lg'}}) }}
+        {{ form_errors(form.address) }}
+        <p class="help-block text-danger"></p>
+    </div>
+</div><!-- .row -->
+
+
+<div class="area-title text-center">
+    <h2>{{ 'quotation.products'|trans({},'quotation') }}</h2>
+    <p>{{ 'quotation.form.description'|trans({},'quotation') }}</p>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        {{ form_widget(form.products, {'attr': {'class': 'row'}} ) }}
+        <a id="addProduct" class="btn btn-lg btn-round btn-dark">Add a product</a>
+    </div>
+</div>
+
+
+<div class="col-md-12 text-center">
+
+    <a id="submit" onclick="send()" href="#sending"
+       class="btn btn-lg btn-round btn-dark">
+        <span>{{ 'quotation.send'|trans({},'quotation') }} </span>
+    </a>
+</div>
+{{ form_rest(form) }}
+    {{ form_end(form) }}
+
+
+<script
+        src="http://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+
+<script src="{{ asset('bundles/grifoflextunisie/sfCollectionAnalyzer/sf_collection_analyzer.js') }}"></script>
+
+<script>
+    function templateProduct() {
+        return '<div class="row bloc">' +
+
+            '<div class="col-md-3 form-group">' +
+            '<label class="sr-only">Title</label>' +
+            '#title#' +
+            '<p class="help-block text-danger"></p>' +
+            '</div>' +
+            '<div class="col-md-3 form-group">' +
+            '<label class="sr-only">Reference</label>' +
+            '#reference#' +
+            '<p class="help-block text-danger"></p>' +
+            '</div>' +
+            '<div class="col-md-3 form-group">' +
+            '<label class="sr-only">Quantity</label>' +
+            '#quantity#' +
+            '<p class="help-block text-danger"></p>' +
+            '</div>' +
+
+            '<a class="btn btn-lg btn-round btn-dark delete">Delete</a>' +
+            '</div>'
+            ;
+    }
+
+    $(function () {
+        var productsDOM = $('#' + '{{ form.products.vars.id }}');
+        var buildPrototypes = {
+            counterProducts: productsDOM.children().length,
+            prototypeProducts: productsDOM.attr('data-prototype'),
+            products: productsDOM,
+            init: function () {
+                $('#addProduct').on('click', function () {
+                    buildPrototypes.buildProductSection();
+                });
+                $('.delete').on('click', function () {
+                    this.closest('.bloc').remove();
+
+
+                });
+            },
+            buildProductSection: function () {
+                this.counterProducts++;
+                var prototypeProductsDOM = $('<div/>').html(this.prototypeProducts).contents();
+                var temp = SFCollectionAnalyzer.buildTemplate(prototypeProductsDOM, templateProduct());
+                var block = temp.replace(/__name__/g, this.counterProducts);
+                this.products.append(block);
+                this.reInit();
+            },
+            reInit: function () {
+                $('.delete').on('click', function () {
+                    this.closest('.bloc').remove();
+                });
+            }
+        };
+        buildPrototypes.init();
+    });
+</script>

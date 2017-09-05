@@ -1,0 +1,29 @@
+user.update: 'Update a user'
+user.form.update: 'User update''s form'
+user.form.title: 'Please fill in the fields'
+user.email: 'Login email'
+user.username: Username
+user.password: Password
+user.new.password: 'New password'
+user.confirm.password: 'Confirm password'
+user.role: Role
+user.current.password: 'Current password'
+user.show: 'Show a user'
+user.about: About
+user.infos: Infos
+user.last.login: 'Last login'
+user.enabled: Enabled
+user.disabled: Disabled
+user.status: Status
+user.buttons.delete: Delete
+user.buttons.disable: Disable
+user.buttons.enable: Enable
+user.buttons.update: Update
+user.list.users: 'List of users'
+user.list.all: 'List of all users'
+user.actions: Actions
+user.buttons.show: Show
+user.buttons.add: 'Add a user'
+user.users: 'Users'
+user.form.add: 'User add''s form'
+user.login: Login

@@ -1,0 +1,139 @@
+{% extends "::base.html.twig" %}
+{% block css %}
+    {{ parent() }}
+{% endblock %}
+{% block title %}
+    Afficher les produits - {{ parent() }}
+{% endblock %}
+{% block body %}
+    <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
+        <h1>Liste des produits</h1>
+        <span class="uk-text-muted uk-text-upper uk-text-small">Liste de tous les produits</span>
+    </div>
+    <div id="page_content_inner">
+        <div class="md-card uk-margin-medium-bottom">
+            <div class="md-card-content">
+                <div class="dt_colVis_buttons"></div>
+
+                <table id="dt_tableExport" class="uk-table uk-table-hover" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Date de création</th>
+                        <th>Catégorie</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for product in products %}
+                        <tr>
+                            <td>
+                                <a data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}"
+                                   title="Afficher"
+                                   href="{{ path('product_show', { 'id': product.id }) }}"> {{ product.id }}</a>
+                            </td>
+                            <td>  {{ product.createdAt|date('d/m/Y H:i') }}</td>
+                            <td>  {{ product.category }}</td>
+                            <td>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <a data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}"
+                                       title="Afficher"
+                                       href="{{ path('application_show', {'id': product.id}) }}">
+                                        <i class="md-icon material-icons">&#xE417;</i>
+                                    </a>
+                                    <a data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}"
+                                       title="Modifier"
+                                       href="{{ path('product_edit', {'id': product.id}) }}">
+                                        <i class="md-icon material-icons">&#xE150;</i>
+                                    </a>
+                                    <a href="javascript:void(0)"
+                                       data-uk-tooltip="{cls:'uk-tooltip-small',pos:'top'}"
+                                       title="Supprimer"
+                                       onclick="confirmDelete({{ product.id }})">
+                                        <i class="md-icon material-icons">&#xE872;</i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="md-fab-wrapper">
+        <a class="md-fab md-fab-accent md-fab-wave-light" href="{{ path('product_new') }}"
+           id="project_type_add"
+           data-uk-tooltip="{cls:'uk-tooltip-small',pos:'left'}"
+           title="Ajouter un produit">
+            <i class="material-icons">&#xE145;</i>
+        </a>
+    </div>
+{% endblock %}
+{% block js %}
+    {{ parent() }}
+    {% javascripts output="js/compiled/mainIndex.js"
+    'bundles/grifoflextunisie/bower_components/datatables/media/js/jquery.dataTables.min.js'
+    'bundles/grifoflextunisie/bower_components/datatables-buttons/js/dataTables.buttons.js'
+    'bundles/grifoflextunisie/assets/js/custom/datatables/buttons.uikit.js'
+    'bundles/grifoflextunisie/bower_components/jszip/dist/jszip.min.js'
+    'bundles/grifoflextunisie/bower_components/pdfmake/build/pdfmake.min.js'
+    'bundles/grifoflextunisie/bower_components/pdfmake/build/vfs_fonts.js'
+    'bundles/grifoflextunisie/bower_components/datatables-buttons/js/buttons.colVis.js'
+    'bundles/grifoflextunisie/bower_components/datatables-buttons/js/buttons.html5.js'
+    'bundles/grifoflextunisie/bower_components/datatables-buttons/js/buttons.print.js'
+    'bundles/grifoflextunisie/assets/js/custom/datatables/datatables.uikit.min.js'
+    'bundles/grifoflextunisie/assets/js/pages/plugins_datatables.min.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script>
+        function confirmDelete(id) {
+            UIkit.modal.confirm('Voulez vous vraiment supprimer ce produit ?',
+                function () {
+                    deleteIt(id);
+                },
+                {
+                    labels: {
+                        Ok: 'Oui',
+                        Cancel: 'Non'
+                    }
+                });
+        }
+
+        function deleteIt(id) {
+            $.ajax({
+                url: '{{ app.request.getSchemeAndHttpHost() ~ app.request.baseUrl }}' + Routing.generate('product_delete', {id: id}),
+                type: 'DELETE',
+                success: function (json) {
+                    if (json.success) {
+                        UIkit.modal.alert('Le produit a été supprimé avec succès.',
+                            {
+                                labels: {
+                                    Ok: 'Fermer'
+                                }
+                            }
+                        ).on('hide.uk.modal', function () {
+                            location.href = '{{ app.request.getSchemeAndHttpHost() ~ app.request.baseUrl }}' + Routing.generate('product_index');
+                        });
+                    }
+                    else {
+                        UIkit.modal.alert('Vous n\'avez pas le droit de supprimer ce projet pour des raisons de sécurité',
+                            {
+                                labels: {
+                                    Ok: 'Fermer'
+                                }
+                            });
+                    }
+                },
+                error: function () {
+                    UIkit.modal.alert('Une exception s\'est produite pendant la suppression. Veuillez réessayer ultérieurement',
+                        {
+                            labels: {
+                                Ok: 'Fermer'
+                            }
+                        });
+                }
+            });
+        }
+    </script>
+{% endblock %}

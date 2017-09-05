@@ -1,0 +1,14 @@
+application.list.all: 'List of all applications'
+application.list.applications: 'List of applications'
+application.fullname: 'Full name'
+application.createdAt: 'Created at'
+application.type.demande: 'Request''s type'
+application.type.application: 'Application''s type'
+application.buttons.show: Show
+application.show: 'Show an application'
+application.cv: resume
+application.open.cv: Open
+application.motivation: 'Cover letter'
+application.open.motivation: Open
+application.details: Details
+application.offre.reference: 'Offer''s reference'

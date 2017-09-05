@@ -1,0 +1,233 @@
+{% extends "::base.html.twig" %}
+{% block css %}
+    {{ parent() }}
+{% endblock %}
+{% block title %}
+    Lecture d'un produit - {{ parent() }}
+{% endblock %}
+{% block body %}
+    <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
+        <h1>{{ product.title }}</h1>
+        <span class="uk-text-muted uk-text-upper uk-text-small">{{ product.createdAt|date("d/m/Y H:i") }}</span>
+    </div>
+    <div id="page_content_inner">
+        <div class="user_content">
+            <ul id="user_profile_tabs" class="uk-tab"
+                data-uk-tab="{connect:'#user_profile_tabs_content', animation:'slide-horizontal'}"
+                data-uk-sticky="{ top: 130, media: 960 }">
+                <li class="uk-active"><a href="#">Produit</a></li>
+                <li><a href="#">Gallerie</a></li>
+                <li><a href="#">Fiche technique</a></li>
+            </ul>
+            <ul id="user_profile_tabs_content" class="uk-switcher uk-margin">
+                <li>
+                    <div class="uk-grid uk-grid-medium" data-uk-grid-margin>
+                        <div class="uk-width-xLarge-2-10 uk-width-large-3-10">
+                            <div class="md-card">
+                                <div class="md-card-toolbar">
+                                    <h3 class="md-card-toolbar-heading-text">
+                                        Infos
+                                    </h3>
+                                </div>
+                                <div class="md-card-content">
+                                    <ul class="md-list">
+                                        <li>
+                                            <div class="md-list-content">
+                                                <span class="uk-text-small uk-text-muted uk-display-block">Titre  </span>
+                                                <span class="md-list-heading uk-text-large">{{ product.title }}</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="md-list-content">
+                                                <span class="uk-text-small uk-text-muted uk-display-block">Date de création</span>
+                                                <span class="md-list-heading uk-text-large">{{ product.createdAt|date("d/m/Y H:i") }}</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="md-list-content">
+                                                <span class="uk-text-small uk-text-muted uk-display-block">Catégorie</span>
+                                                <span class="md-list-heading uk-text-large">{{ product.category }}</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="md-card">
+                                <div class="md-card-toolbar">
+                                    <h3 class="md-card-toolbar-heading-text">
+                                        Image principale
+                                    </h3>
+                                </div>
+                                <div class="md-card-content">
+                                    <a href="{{ vich_uploader_asset(product, 'mainPictureFile') }}"
+                                       data-uk-lightbox="{group:'product-main-picture'}">
+                                        <img src="{{ vich_uploader_asset(product, 'mainPictureFile') }}"
+                                             alt="{{ product.mainPictureName }}"/>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="uk-width-xLarge-8-10  uk-width-large-7-10">
+                            <div class="md-card">
+                                <div class="md-card-toolbar">
+                                    <h3 class="md-card-toolbar-heading-text">
+                                        Déscription
+                                    </h3>
+                                </div>
+                                <div class="md-card-content large-padding">
+                                    <div class="uk-grid uk-grid-divider uk-grid-medium" data-uk-grid-margin>
+                                        <div class="uk-width-large-2-2">
+                                            {% autoescape %}
+                                                {{ product.description|raw }} {# var won't be escaped #}
+                                            {% endautoescape %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="uk-width-medium-1-1  uk-width-medium-1-1">
+                        <div class="md-card">
+                            <div class="md-card-toolbar">
+                                <h3 class="md-card-toolbar-heading-text">
+                                    Gallerie
+                                </h3>
+                            </div>
+                            <div class="md-card-content large-padding">
+                                {% if  product.pictures|length ==0 %}
+                                    <div class="uk-margin-bottom uk-text-center uk-position-relative">
+                                        <span class="uk-form-help-block">  Pas encore d'images </span>
+                                    </div>
+                                {% endif %}
+                                <div class="uk-grid uk-grid-medium" data-uk-grid-margin>
+                                    {% for picture in product.pictures %}
+                                        <div class="uk-width-medium-1-4">
+                                            <span class="uk-form-help-block"> {{ picture.description }}</span>
+                                            <a href="{{ vich_uploader_asset(picture, 'file') }}"
+                                               data-uk-lightbox="{group:'product-pictures'}">
+                                                <img src="{{ vich_uploader_asset(picture, 'file') }}"
+                                                     alt="{{ picture.fileName }}"/>
+                                            </a>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="uk-width-medium-1-1  uk-width-medium-1-1">
+                        <div class="md-card">
+                            <div class="md-card-toolbar">
+                                <h3 class="md-card-toolbar-heading-text">
+                                    Fiche technique
+                                </h3>
+                            </div>
+                            <div class="md-card-content large-padding">
+                                {% if  product.technicalSheetName is null %}
+                                    <div class="uk-margin-bottom uk-text-center uk-position-relative">
+                                        <span class="uk-form-help-block">  Pas de fiche technique </span>
+                                    </div>
+                                {% else %}
+                                    <div class="uk-width-small-1-10">
+                                        <a target="_blank"
+                                           href="{{ vich_uploader_asset(product, 'technicalSheetFile') }}">
+                                            <img src="{{ asset('bundles/grifoflextunisie/images/pdf.png') }}"
+                                                 alt="Fiche technique"
+                                                 href="{{ vich_uploader_asset(product, 'technicalSheetFile') }}">
+                                        </a>
+                                        <span class="uk-text-muted">
+                                            <strong>
+                                                <a target="_blank"
+                                                   href="{{ vich_uploader_asset(product, 'technicalSheetFile') }}">
+                                                    Visualiser
+                                                </a>
+                                            </strong>
+                                        </span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="md-fab-wrapper md-fab-speed-dial">
+        <a class="md-fab md-fab-primary" href="javascript:void(0)"
+           data-uk-tooltip="{pos:'left'}"
+           title="Actions">
+            <i class="material-icons">&#xE55D;</i>
+        </a>
+        <div class="md-fab-wrapper-small">
+            <a class="md-fab md-fab-small md-fab-danger" href="javascript:void(0)"
+               data-uk-tooltip="{cls:'uk-tooltip-small',pos:'left'}"
+               title="Supprimer"
+               onclick="confirmDelete({{ product.id }})">
+                <i class="material-icons">&#xE92B;</i>
+            </a>
+            <a class="md-fab md-fab-small md-fab-success"
+               href="{{ path('product_edit', {'id': product.id}) }}"
+               data-uk-tooltip="{cls:'uk-tooltip-small',pos:'left'}"
+               title="Modifier">
+                <i class="material-icons">&#xE3C9;</i>
+            </a>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    {{ parent() }}
+    <script>
+        function confirmDelete(id) {
+            UIkit.modal.confirm('Voulez vous vraiment supprimer ce produit ?',
+                function () {
+                    deleteIt(id);
+                },
+                {
+                    labels: {
+                        Ok: 'Oui',
+                        Cancel: 'Non'
+                    }
+                });
+        }
+
+        function deleteIt(id) {
+
+            $.ajax({
+                url: '{{ app.request.getSchemeAndHttpHost() ~ app.request.baseUrl }}' + Routing.generate('product_delete', {id: id}),
+                type: 'DELETE',
+                success: function (response) {
+                    if (response.deleted) {
+                        UIkit.modal.alert('Le produit a été supprimé avec succès.',
+                            {
+                                labels: {
+                                    Ok: 'Fermer'
+                                }
+                            }
+                        ).on('hide.uk.modal', function () {
+                            location.href = '{{ app.request.getSchemeAndHttpHost() ~ app.request.baseUrl }}' + Routing.generate('product_index');
+                        });
+                    }
+                    else {
+                        UIkit.modal.alert('Vous n\'avez pas le droit de supprimer ce service pour des raisons de sécurité',
+                            {
+                                labels: {
+                                    Ok: 'Fermer'
+                                }
+                            });
+                    }
+                },
+                error: function () {
+                    UIkit.modal.alert('Une exception s\'est produite pendant la suppression. Veuillez réessayer ultérieurement',
+                        {
+                            labels: {
+                                Ok: 'Fermer'
+                            }
+                        });
+                }
+            });
+        }
+    </script>
+{% endblock %}

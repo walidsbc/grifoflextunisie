@@ -1,0 +1,29 @@
+services:
+#    user.example:
+#        class: SBC\UserBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    user.registration.form.type:
+        class: SBC\UserBundle\Form\Type\RegistrationFormType
+        arguments: ['%fos_user.model.user.class%']
+        tags:
+            - { name: form.type, alias: user_registration }
+
+    redirect_register_user.registration.success:
+        class: SBC\UserBundle\EventListener\RegistrationConfirmListener
+        arguments: ["@router","@security.token_storage"]
+        tags:
+            - { name: kernel.event_subscriber }
+
+    user.edit.form.type:
+        class: SBC\UserBundle\Form\Type\ProfileFormType
+        arguments: ['%fos_user.model.user.class%']
+        decorates: fos_user.profile.form.type
+        tags:
+            - { name: form.type, alias: user_profile }
+
+    user.editUser.form.type:
+            class: SBC\UserBundle\Form\Type\ProfileEditFormType
+            arguments: ['%fos_user.model.user.class%']
+            decorates: fos_user.profile.form.type
+            tags:
+                - { name: form.type, alias: user_profile }

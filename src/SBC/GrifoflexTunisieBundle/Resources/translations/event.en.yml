@@ -1,0 +1,28 @@
+event.title: Title
+event.event.title: 'Show an event'
+event.description: Description
+event.createdAt: 'Created at'
+event.actions: Actions
+event.list.events: 'List of events'
+event.list.all: 'List of all events'
+event.update: 'Update an event'
+event.delete: 'Delete an event'
+event.main.picture: 'Main picture'
+event.details: Details
+event.gallery: Gallery
+event.infos: Infos
+event.buttons.update: Update
+event.buttons.delete: Delete
+event.buttons.save: Save
+event.buttons.show: Show
+event.buttons.add: 'Add an event'
+event.form.update: 'Event update''s form'
+event.form.title: 'Please fill in the fields'
+event.form.add: 'Event add''s form'
+event.show: 'Show an event'
+event.event: Event
+event.nogallery: 'Not yet of pictures'
+event.eventDate: 'Event date'
+event.readmore: 'read more'
+event.ourevents: 'Our events'
+event.eventdetails: 'Event details'
